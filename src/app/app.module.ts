@@ -3,16 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './layout/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
-import { DataTableComponent } from './components/data-table/data-table.component';
+import { ProductTableComponent } from './components/product-table/product-table.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 @NgModule({
   declarations: [
     HomeComponent,
-    DataTableComponent
+    ProductTableComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatCardModule,
+    MatTableModule,
+    MatIconModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [HomeComponent]
