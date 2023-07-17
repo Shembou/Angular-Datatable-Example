@@ -1,0 +1,13 @@
+.mat-table {
+    max-height: 70vh !important;
+    overflow-y: auto;
+}
+.mat-column-name {
+    width:80%;
+}
+.mat-column-quantitu {
+    width:20%;
+}
+.mat-mdc-table .mdc-data-table__row:hover {
+    cursor: pointer;
+}

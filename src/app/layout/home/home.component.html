@@ -1,1 +1,17 @@
-<p>test</p>
+<div class="container-fluid p-4">
+    <mat-card>
+        <mat-card-content>
+        <div class="row align-items-center border-bottom border-2 border-dark border-opacity-50">
+            <div class="col-auto">
+                <mat-card class="p-4 m-4 text-white bg-info rounded-circle">
+                    <mat-icon fontIcon="format_list_bulleted"></mat-icon>
+                </mat-card>
+            </div>
+            <div class="col-auto fs-1 fw-lighter font-monospace">
+                Products
+            </div>
+        </div>
+            <app-product-table *ngIf="products" [products]="products"></app-product-table>
+        </mat-card-content>
+    </mat-card>
+</div>

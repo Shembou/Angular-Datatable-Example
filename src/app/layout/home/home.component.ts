@@ -21,10 +21,13 @@ export class HomeComponent implements OnInit {
   }
 
   getDummyData() {
-    this.httpRequestsService.get<Product[]>('/assets/dummyData/product-data.json').subscribe(
-      data => {
+    this.httpRequestsService.get<Product[]>('/assets/dummyData/product-data.json').subscribe({
+      next: (data: Product[]) => {
         this.products = data;
-      }
-    );
+      },
+        error: (error: any) => {
+        console.log(error);
+      },
+    });
   }
 }
