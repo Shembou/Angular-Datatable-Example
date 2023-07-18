@@ -1,7 +1,9 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-table',
@@ -10,12 +12,15 @@ import { Product } from 'src/app/model/product';
 })
 export class ProductTableComponent implements AfterViewInit, OnInit {
 
-  headers: string[] = ['name', 'quantity']
+  headers: string[] = ['name', 'quantity', 'status']
   @Input() products: Product[]
   dataSource: MatTableDataSource<Product> = new MatTableDataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor() {
+  constructor( 
+    private router: Router,
+    public productsService: ProductsService
+    ) {
   }
 
   ngOnInit(): void {
@@ -24,5 +29,9 @@ export class ProductTableComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  showDetails(row: Product) {
+    this.router.navigate(['products', row.id]);
   }
 }

@@ -17,11 +17,11 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getDummyData();
+    this.getProducts();
   }
 
-  getDummyData() {
-    this.httpRequestsService.get<Product[]>('/assets/dummyData/product-data.json').subscribe({
+  getProducts() {
+    this.httpRequestsService.getProductWithoutDescription('/assets/dummyData/product-data.json').subscribe({
       next: (data: Product[]) => {
         this.products = data;
       },

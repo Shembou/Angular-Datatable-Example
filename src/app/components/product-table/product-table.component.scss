@@ -3,11 +3,15 @@
     overflow-y: auto;
 }
 .mat-column-name {
-    width:80%;
+    width:70%;
 }
-.mat-column-quantitu {
-    width:20%;
+.mat-column-quantity {
+    width:15%;
+}
+.mat-column-status {
+    width:15%;
 }
 .mat-mdc-table .mdc-data-table__row:hover {
     cursor: pointer;
+    background-color: rgba($color: #505050, $alpha: 0.1)
 }
