@@ -43,5 +43,4 @@ export class ProductDetailsComponent implements OnInit{
   return(){
     this.router.navigate(['products']);
   }
-
 }

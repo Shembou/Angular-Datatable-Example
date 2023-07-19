@@ -9,12 +9,12 @@ export class ProductsService {
 
   getStatusName(status: number): string {
     const mappedStatuses: { [key: number]: string} = {
-      0: 'Unavailable',
-      1: 'Available',
+      0: 'Delivered',
+      1: 'Traveling',
       2: 'Pending',
       3: 'Cancelled',
       4: 'On Hold',
-      5: 'Cancelled'
+      5: 'Returned'
     };
     return mappedStatuses[status] || 'Unknown';
   }

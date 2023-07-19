@@ -12,14 +12,19 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { TableFiltersComponent } from './components/table-filters/table-filters.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProductTableComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    TableFiltersComponent
   ],
   imports: [
     AppRoutingModule,
@@ -29,7 +34,11 @@ import { AppComponent } from './app.component';
     MatCardModule,
     MatTableModule,
     MatIconModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   exports: [
     RouterModule
