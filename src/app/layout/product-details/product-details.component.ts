@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
-import { AppConfigService } from 'src/app/services/app-config.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -16,7 +15,6 @@ export class ProductDetailsComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private appConfigService: AppConfigService,
     public productsService: ProductsService
   ) {  
   }
@@ -31,7 +29,7 @@ export class ProductDetailsComponent implements OnInit{
   }
 
   getProductById(id: number) {
-    this.productsService.getById(this.appConfigService.apiBaseUrl, id).subscribe({
+    this.productsService.getProductById(id).subscribe({
       next: (data:Product) => {
         this.product = data;
       },

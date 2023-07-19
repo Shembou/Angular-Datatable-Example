@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { Product } from '../model/product';
+import { AppConfigService } from './app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ import { Observable, map } from 'rxjs';
 export class ProductsService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private appConfigService: AppConfigService
   ) { }
 
   getStatusName(status: number): string {
@@ -23,17 +26,13 @@ export class ProductsService {
     return mappedStatuses[status] || 'Unknown';
   }
 
-  getProductWithoutDescription(url: string): Observable<any[]> {
-    return this.http.get<any[]>(url).pipe(
-      map((data: any[]) =>
-        data.map(({ description, ...product }) => product)
-      )
-    );
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.appConfigService.apiBaseUrl);
   }
 
-  getById(url: string, id: number): Observable<any> {
-    return this.http.get(url).pipe(
-      map((data: any[]) => data.find(product => product.id === id))
+  getProductById(id: number): Observable<Product> {
+    return this.http.get(this.appConfigService.apiBaseUrl).pipe(
+      map((data: Product[]) => data.find(product => product.id === id))
     );
   }
 }

@@ -14,10 +14,10 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductTableComponent implements AfterViewInit, OnInit {
 
-  headers: string[] = ['name', 'quantity', 'status']
-  @Input() products: Product[]
-  filteredProducts: Product[]
+  headers: string[] = ['name', 'quantity', 'status'];
+  @Input() products: Product[];
   @Input() filters: FormGroup;
+  filteredProducts: Product[];
   dataSource: MatTableDataSource<Product> = new MatTableDataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

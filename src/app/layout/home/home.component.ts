@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Product } from 'src/app/model/product';
-import { AppConfigService } from 'src/app/services/app-config.service';
-import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 
@@ -17,8 +15,7 @@ export class HomeComponent implements OnInit {
   filters: FormGroup;
 
   constructor(
-    private productsService: ProductsService,
-    private appConfigService: AppConfigService
+    private productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
@@ -26,7 +23,7 @@ export class HomeComponent implements OnInit {
   }
 
   getProducts() {
-    this.productsService.getProductWithoutDescription(this.appConfigService.apiBaseUrl).subscribe({
+    this.productsService.getAllProducts().subscribe({
       next: (data: Product[]) => {
         this.products = data.filter((product) => product.quantity > 0);
       },
