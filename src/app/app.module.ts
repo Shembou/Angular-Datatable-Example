@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { APP_INITIALIZER } from '@angular/core';
 import { AppConfigService } from './services/app-config.service';
+import { LoginComponent } from './layout/login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { AppConfigService } from './services/app-config.service';
     HomeComponent,
     ProductTableComponent,
     ProductDetailsComponent,
-    TableFiltersComponent
+    TableFiltersComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,

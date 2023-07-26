@@ -4,5 +4,6 @@ export interface Product {
     quantity: number,
     availability: boolean,
     status: number,
-    description: string
+    description: string,
+    price: number
 }

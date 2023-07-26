@@ -3,13 +3,16 @@
     overflow-y: auto;
 }
 .mat-column-name {
-    width:70%;
+    width:60%;
 }
 .mat-column-quantity {
     width:15%;
 }
 .mat-column-status {
     width:15%;
+}
+.mat-column-price {
+    width:10%;
 }
 .mat-mdc-table .mdc-data-table__row:hover {
     cursor: pointer;

@@ -25,12 +25,13 @@ export class HomeComponent implements OnInit {
 
   getProducts() {
     this.httpRequestsService.get("/products").subscribe({
-      next: (data: Product[]) => {
-        this.products = data.filter((product) => product.quantity > 0);
-      },
-        error: (error: any) => {
-        console.log(error);
-      },
+      next: (data: Product[] | any) => {
+        if (data.errorMessage) {
+          console.log(data.errorMessage);
+        } else {
+          this.products = data.filter((product) => product.quantity > 0);
+        }
+      }
     });
   }
 

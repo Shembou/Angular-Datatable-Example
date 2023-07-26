@@ -7,6 +7,7 @@
     <mat-form-field class="p-2">
         <mat-label>Statuses</mat-label>
         <mat-select formControlName="status">
+            <mat-option>None</mat-option>
             <mat-option *ngFor="let status of statuses" [value]="status.value">
                 {{status.name}}
             </mat-option>

@@ -19,10 +19,8 @@ export class HttpRequestsService {
     this.http.get<T>(this.appConfigService.apiBaseUrl+url);
   }
 
-  // update<T>(url: string, body:any, params?: any) : Observable<T> {
-  //   return params ? 
-  //   this.http.post<T>(`${url}/?${params}`, body) :
-  //   this.http.post<T>(url,body); 
-  // }
+  post<T>(url: string, body?:any) : Observable<T> {
+     return this.http.post<T>(`${this.appConfigService.apiBaseUrl+url}`,body); 
+  }
   
 }

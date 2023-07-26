@@ -14,7 +14,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductTableComponent implements AfterViewInit, OnInit {
 
-  headers: string[] = ['name', 'quantity', 'status'];
+  headers: string[] = ['name', 'quantity', 'status', 'price'];
   @Input() products: Product[];
   @Input() filters: FormGroup;
   filteredProducts: Product[];

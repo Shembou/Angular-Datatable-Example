@@ -10,7 +10,7 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit{
+export class ProductDetailsComponent implements OnInit {
 
   product: Product
 
@@ -19,11 +19,11 @@ export class ProductDetailsComponent implements OnInit{
     private router: Router,
     public productsService: ProductsService,
     private httpRequestsService: HttpRequestsService,
-  ) {  
+  ) {
   }
 
   ngOnInit(): void {
-    const id  = parseInt(this.getIdFromParams());
+    const id = parseInt(this.getIdFromParams());
     this.getProductById(id);
   }
 
@@ -33,13 +33,14 @@ export class ProductDetailsComponent implements OnInit{
 
   getProductById(id: number) {
     const params = new HttpParams()
-    .set('id', id);
+      .set('id', id);
     this.httpRequestsService.get("/products", params).subscribe({
-      next: (data:Product[]) => {
-        this.product = data[0];
-      },
-      error: (error: any) => {
-        console.log(error);
+      next: (data: Product[] | any) => {
+        if (data.errorMessage) {
+          console.log(data.errorMessage);
+        } else {
+          this.product = data[0];
+        }
       }
     });
   }
