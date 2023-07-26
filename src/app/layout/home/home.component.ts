@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Product } from 'src/app/model/product';
+import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   filters: FormGroup;
 
   constructor(
-    private productsService: ProductsService
+    private httpRequestsService: HttpRequestsService
   ) { }
 
   ngOnInit(): void {
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit {
   }
 
   getProducts() {
-    this.productsService.getAllProducts().subscribe({
+    this.httpRequestsService.get("/products").subscribe({
       next: (data: Product[]) => {
         this.products = data.filter((product) => product.quantity > 0);
       },

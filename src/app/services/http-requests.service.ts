@@ -1,20 +1,28 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConfigService } from './app-config.service';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpRequestsService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private appConfigService: AppConfigService
     ) { }
 
   //normally this function would work with backend.
-  get<T>(url: string, params?: any) : Observable<T> {
-    return params ? 
-    this.http.get<T>(`${url}/${params}`) :
-    this.http.get<T>(url);
+  get<T>(url: string, queryParams?: HttpParams) : Observable<T> {
+    return queryParams ? 
+    this.http.get<T>(`${this.appConfigService.apiBaseUrl+url}`, { params: queryParams } ) :
+    this.http.get<T>(this.appConfigService.apiBaseUrl+url);
   }
+
+  // update<T>(url: string, body:any, params?: any) : Observable<T> {
+  //   return params ? 
+  //   this.http.post<T>(`${url}/?${params}`, body) :
+  //   this.http.post<T>(url,body); 
+  // }
   
 }
