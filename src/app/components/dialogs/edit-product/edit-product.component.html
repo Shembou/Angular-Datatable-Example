@@ -1,0 +1,49 @@
+<div class="container pt-2">
+    <form [formGroup]="form">
+        <!-- Name -->
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+        </div>
+
+        <!-- Quantity -->
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="number" class="form-control" id="quantity" formControlName="quantity">
+        </div>
+
+        <!-- Availability -->
+        <div class="form-group">
+            <label for="availability">Availability</label>
+            <select class="form-control" id="availability" formControlName="availability">
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" formControlName="status">
+                <option *ngFor="let status of statuses" [value]="status.value">
+                    {{status.name}}
+                </option>
+            </select>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+        </div>
+
+        <!-- Price -->
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="number" class="form-control" id="price" formControlName="price">
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>

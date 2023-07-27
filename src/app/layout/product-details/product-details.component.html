@@ -46,9 +46,21 @@
                 <div class="row justify-content-center">
                     <div class="col-xxl-6 col-l-8 col-md-9 col-sm-12 p-0 m-0">
                         <div class="row justify-content-end">
+                            <div class="col-3 pt-2 d-grid pe-1 col-lg-2" *ngIf="user.isAdmin">
+                                <button (click)="delete()" type="button" class="btn btn-danger pl-4 text-start">
+                                    <mat-icon fontIcon="delete" class="align-middle text-white"></mat-icon>
+                                    delete
+                                </button>
+                            </div>
+                            <div class="col-3 pt-2 d-grid pe-1 col-lg-2" *ngIf="user.isAdmin">
+                                <button (click)="edit()" type="button" class="btn btn-warning pl-4 text-start">
+                                    <mat-icon fontIcon="edit" class="align-middle text-white"></mat-icon>
+                                    edit
+                                </button>
+                            </div>
                             <div class="col-3 pt-2 d-grid pe-1 col-lg-2">
                                 <button (click)="return()" type="button " class="btn btn-success pl-4 text-start">
-                                    <mat-icon fontIcon="logout" class="align-middle"></mat-icon>
+                                    <mat-icon fontIcon="logout" class="align-middle text-white"></mat-icon>
                                     exit
                                 </button>
                             </div>

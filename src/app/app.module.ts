@@ -20,6 +20,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { APP_INITIALIZER } from '@angular/core';
 import { AppConfigService } from './services/app-config.service';
 import { LoginComponent } from './layout/login/login.component';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { EditProductComponent } from './components/dialogs/edit-product/edit-product.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { LoginComponent } from './layout/login/login.component';
     ProductTableComponent,
     ProductDetailsComponent,
     TableFiltersComponent,
-    LoginComponent
+    LoginComponent,
+    EditProductComponent
   ],
   imports: [
     AppRoutingModule,
@@ -42,7 +45,8 @@ import { LoginComponent } from './layout/login/login.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   exports: [
     RouterModule
