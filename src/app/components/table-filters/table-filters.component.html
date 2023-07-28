@@ -1,10 +1,10 @@
-<form [formGroup]="filters">
-    <mat-form-field class="p-2 col-6">
+<form [formGroup]="filters" class="row">
+    <mat-form-field class="p-2 col-12 col-xl-6">
         <mat-label>Filter</mat-label>
         <input matInput formControlName="search">
     </mat-form-field>
 
-    <mat-form-field class="p-2">
+    <mat-form-field class="p-2 col-6 col-xl-2">
         <mat-label>Statuses</mat-label>
         <mat-select formControlName="status">
             <mat-option>None</mat-option>
@@ -13,7 +13,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
-    Show avaliable:
-    <mat-checkbox formControlName="availability"></mat-checkbox>
+    <span class="col-3 text-center align-self-center pb-3 col-xl-2">Show avaliable:
+        <mat-checkbox formControlName="availability"></mat-checkbox>
+    </span>
 </form>

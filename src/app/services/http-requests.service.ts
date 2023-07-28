@@ -22,5 +22,10 @@ export class HttpRequestsService {
   post<T>(url: string, body?:any) : Observable<T> {
      return this.http.post<T>(`${this.appConfigService.apiBaseUrl+url}`,body); 
   }
-  
+
+  delete<T>(url, queryParams?: HttpParams) : Observable<T> {
+    return queryParams ? 
+    this.http.delete<T>(`${this.appConfigService.apiBaseUrl+url}`, { params: queryParams} ) :
+    this.http.delete<T>(this.appConfigService.apiBaseUrl+url);
+  }  
 }

@@ -25,14 +25,4 @@ export class ProductsService {
     };
     return mappedStatuses[status] || 'Unknown';
   }
-
-  getAllProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>(this.appConfigService.apiBaseUrl);
-  }
-
-  getProductById(id: number): Observable<Product> {
-    return this.http.get(this.appConfigService.apiBaseUrl).pipe(
-      map((data: Product[]) => data.find(product => product.id === id))
-    );
-  }
 }

@@ -1,0 +1,11 @@
+<div class="container">
+    <div class="row text-center justify-content-center align-items-center">
+        <p class="fs-3">are you sure you want to delete {{data.name}}?</p>
+        <div class="col-6 d-grid">
+            <button class="btn btn-success" (click)="delete()">Yes</button>
+        </div>
+        <div class="col-6 d-grid">
+            <button class="btn btn-danger" (click)="close()">No</button>
+        </div>
+    </div>
+</div>

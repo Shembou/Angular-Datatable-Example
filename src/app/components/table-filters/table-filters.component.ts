@@ -1,6 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Options } from 'src/app/model/options';
+import { User } from 'src/app/model/user';
+import { AuthService } from 'src/app/services/auth.service';
+import { ProductFormComponent } from '../dialogs/product-form/product-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-filters',
@@ -12,14 +16,24 @@ export class TableFiltersComponent implements OnInit {
   @Output() filters: FormGroup;
   @Output() sentFilters = new EventEmitter<FormGroup>();
   statuses: Options[];
+  user: User;
 
-  constructor() {}
+  constructor(
+    private auth: AuthService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit() {
+    this.getUser();
     this.createFormGroup();
     this.emitFilters();
     this.setOptions();
     this.attachFilterListener();
+    
+  }
+
+  getUser() {
+    this.user = this.auth.getCurrentUser();
   }
 
   createFormGroup() {
@@ -42,7 +56,7 @@ export class TableFiltersComponent implements OnInit {
       {value: 5, name: 'Returned'}
     ]
   }
-
+  
   attachFilterListener() {
     this.filters.valueChanges.subscribe(() => {
       this.updateSessionStorage();

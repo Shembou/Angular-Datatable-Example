@@ -21,7 +21,12 @@ import { APP_INITIALIZER } from '@angular/core';
 import { AppConfigService } from './services/app-config.service';
 import { LoginComponent } from './layout/login/login.component';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { EditProductComponent } from './components/dialogs/edit-product/edit-product.component';
+import { DeleteProductComponent } from './components/dialogs/delete-product/delete-product.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { ProductFormComponent } from './components/dialogs/product-form/product-form.component';
+import { AboutComponent } from './layout/about/about.component';
+import { SummaryComponent } from './layout/summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,12 @@ import { EditProductComponent } from './components/dialogs/edit-product/edit-pro
     ProductDetailsComponent,
     TableFiltersComponent,
     LoginComponent,
-    EditProductComponent
+    DeleteProductComponent,
+    HeaderComponent,
+    FooterComponent,
+    ProductFormComponent,
+    AboutComponent,
+    SummaryComponent,
   ],
   imports: [
     AppRoutingModule,

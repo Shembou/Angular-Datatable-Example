@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="container-fluid p-4">
     <mat-card>
         <mat-card-content>
@@ -10,11 +11,20 @@
                 <div class="col-auto fs-1 fw-lighter font-monospace">
                     Products
                 </div>
-                <div class="col-8">
+                <div class="col">
                     <app-table-filters (sentFilters)="recieveFilters($event)"></app-table-filters>
                 </div>
             </div>
-            <app-product-table *ngIf="products" [products]="products" [filters]="filters"></app-product-table>
+            <div *ngIf="products">
+            <app-product-table [products]="products" [filters]="filters"></app-product-table>
+            <div class="text-end">
+                <button 
+                *ngIf="user.isAdmin"
+                class="btn btn-success"
+                (click)="addProduct()">add product</button>
+            </div>
+        </div>
         </mat-card-content>
     </mat-card>
 </div>
+<app-footer></app-footer>

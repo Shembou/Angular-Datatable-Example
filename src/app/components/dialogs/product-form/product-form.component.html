@@ -32,7 +32,7 @@
         </div>
 
         <!-- Description -->
-        <div class="form-group">
+        <div class="form-group ">
             <label for="description">Description</label>
             <textarea class="form-control" id="description" formControlName="description"></textarea>
         </div>
@@ -42,8 +42,20 @@
             <label for="price">Price</label>
             <input type="number" class="form-control" id="price" formControlName="price">
         </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- Buttons-->
+        <div class="row justify-content-end">
+            <div class="col-3 pt-2 d-grid pe-1 col-lg-2">
+                <button (click)="update()" type="button" class="btn btn-warning pl-4">
+                    <mat-icon fontIcon="edit" class="align-middle text-white"></mat-icon>
+                    edit
+                </button>
+            </div>
+            <div class="col-3 pt-2 d-grid pe-1 col-lg-2">
+                <button (click)="exit()" type="button" class="btn btn-success pl-4">
+                    <mat-icon fontIcon="logout" class="align-middle text-white"></mat-icon>
+                    cancel
+                </button>
+            </div>
+        </div>
     </form>
 </div>

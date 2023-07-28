@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { pageSettings } from 'src/app/model/pageSettings';
 import { Product } from 'src/app/model/product';
 import { ProductsService } from 'src/app/services/products.service';
@@ -12,14 +13,16 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.scss']
 })
-export class ProductTableComponent implements AfterViewInit, OnInit {
-
-  headers: string[] = ['name', 'quantity', 'status', 'price'];
+export class ProductTableComponent implements AfterViewInit, OnInit, OnChanges {
+  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   @Input() products: Product[];
   @Input() filters: FormGroup;
   filteredProducts: Product[];
+  headers: string[] = ['name', 'quantity', 'status', 'price'];
   dataSource: MatTableDataSource<Product> = new MatTableDataSource;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  
 
   constructor(
     private router: Router,
@@ -28,12 +31,18 @@ export class ProductTableComponent implements AfterViewInit, OnInit {
   }
 
   ngOnInit(): void {
-    this.attachFilterListener();
+    this.attachValueChangesListener();
     this.setUpDataSource();
   }
 
   ngAfterViewInit(): void {
     this.performActionsOnTable();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['products'] && changes['products'].currentValue) {
+      this.setUpDataSource();
+    }
   }
 
   setUpDataSource() {
@@ -73,10 +82,10 @@ export class ProductTableComponent implements AfterViewInit, OnInit {
     return tableElement.scrollTop;
   }
 
-  attachFilterListener() {
+  attachValueChangesListener() {
     this.filters.valueChanges.subscribe(() => {
       this.setUpDataSource();
-    })
+    });
   }
 
   showDetails(row: Product) {

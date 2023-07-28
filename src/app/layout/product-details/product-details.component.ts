@@ -2,7 +2,9 @@ import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EditProductComponent } from 'src/app/components/dialogs/edit-product/edit-product.component';
+import { DeleteProductComponent } from 'src/app/components/dialogs/delete-product/delete-product.component';
+import { ProductFormComponent } from 'src/app/components/dialogs/product-form/product-form.component';
+import { Item } from 'src/app/model/item';
 import { Product } from 'src/app/model/product';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
@@ -18,6 +20,8 @@ export class ProductDetailsComponent implements OnInit {
 
   product: Product
   user: User;
+  isLoggedIn: boolean;
+  id: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,9 +34,9 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = parseInt(this.getIdFromParams());
-    this.user = this.auth.getCurrentUser();
-    this.getProductById(id);
+    this.id = parseInt(this.getIdFromParams());
+    this.getAuthData();
+    this.getProductById(this.id);
   }
 
   getIdFromParams() {
@@ -52,16 +56,51 @@ export class ProductDetailsComponent implements OnInit {
       }
     });
   }
+
+  getAuthData() {
+    this.user = this.auth.getCurrentUser();
+    this.isLoggedIn = this.auth.isLoggedIn;
+  }
+
   edit() {
-    const dialogRef = this.dialog.open(EditProductComponent, {
+    const dialogRef = this.dialog.open(ProductFormComponent, {
+      data: this.product,
+      height: '60vh',
+      width: '60vw'
+    });
+    //refresh page
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == true) {
+        this.getProductById(this.id);
+      }
+    })
+  }
+
+  delete () {
+    const dialogRef = this.dialog.open(DeleteProductComponent, {
       data: this.product,
       height: '60vh',
       width: '60vw'
     });
   }
 
-  delete () {
+  addToCart() {
+    const cart = this.prepareCart();
+    sessionStorage.setItem('cart',JSON.stringify(cart));
+  }
 
+  prepareCart() {
+    const cart = this.getCart();
+    let item: Item = {
+      userId: this.user.id,
+      product: this.product
+    }
+    cart.push(item);
+    return cart;
+  }
+
+  getCart() {
+    return JSON.parse(sessionStorage.getItem('cart')) || [];
   }
 
   return() {

@@ -1,0 +1,43 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <table mat-table [dataSource]="dataSource">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Name</th>
+                    <td mat-cell *matCellDef="let item">{{item.product.name}}</td>
+                </ng-container>
+                <ng-container matColumnDef="quantity">
+                    <th mat-header-cell *matHeaderCellDef>Quantity</th>
+                    <td mat-cell *matCellDef="let item">{{item.product.quantity}}</td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
+        </div>
+        <div class="col-4 text-center pt-4 fs-3">
+            <p>Summary:</p>
+            <div *ngFor="let userItem of userItems" class="col-12 fs-6">
+                <div class="p-2">
+                    <span class="col-6 border-end">
+                        {{userItem.product.name}}
+                    </span>
+                    <span class="col-6 ps-2 pt-2">
+                        {{userItem.product.price}}$
+                    </span>
+                </div>
+            </div>
+            <div class="col-12 fs-6">
+                <div class="p-2">
+                    <span class="col-6 border-end">
+                        Total:
+                    </span>
+                    <span class="col-6 ps-2 pt-2">
+                        {{total}}$
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
