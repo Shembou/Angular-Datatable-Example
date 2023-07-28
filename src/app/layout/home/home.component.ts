@@ -1,6 +1,7 @@
 import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { ProductFormComponent } from 'src/app/components/dialogs/product-form/product-form.component';
 import { Product } from 'src/app/model/product';
 import { User } from 'src/app/model/user';
@@ -22,7 +23,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   constructor(
     private httpRequestsService: HttpRequestsService,
     private dialog: MatDialog,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -37,8 +39,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     this.httpRequestsService.get("/products").subscribe({
       next: (data: Product[] | any) => {
         if (data.errorMessage) {
-          console.log(data.errorMessage);
-        } else {
+          this.toastr.error(`${data.errorMessage}`, 'Error');
+        }else {
           this.products = data.filter((product) => product.quantity > 0);
         }
       }

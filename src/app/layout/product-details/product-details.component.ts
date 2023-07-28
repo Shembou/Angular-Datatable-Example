@@ -2,6 +2,7 @@ import { HttpParams } from '@angular/common/http';
 import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { DeleteProductComponent } from 'src/app/components/dialogs/delete-product/delete-product.component';
 import { ProductFormComponent } from 'src/app/components/dialogs/product-form/product-form.component';
 import { Item } from 'src/app/model/item';
@@ -29,7 +30,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     public productsService: ProductsService,
     private httpRequestsService: HttpRequestsService,
     private auth: AuthService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private toastr: ToastrService
   ) {
   }
 
@@ -52,7 +54,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     this.httpRequestsService.get("/products", params).subscribe({
       next: (data: Product[] | any) => {
         if (data.errorMessage) {
-          console.log(data.errorMessage);
+          this.toastr.error(`${data.errorMessage}`, 'Error');
         } else {
           this.product = data[0];
         }
@@ -90,6 +92,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   addToCart() {
     const cart = this.prepareCart();
     sessionStorage.setItem('cart',JSON.stringify(cart));
+    this.toastr.success(`Added ${this.product.name} to cart`, 'Success');
   }
 
   prepareCart() {

@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/model/user';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
 
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private httpRequestsService: HttpRequestsService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
   }
 
@@ -50,7 +52,7 @@ export class LoginComponent implements OnInit {
     this.httpRequestsService.post('/users', body).subscribe({
       next: (data: User[] | any) => {
         if (data.errorMessage) {
-          console.log(data.errorMessage);
+          this.toastr.error(`${data.errorMessage}`, 'Error');
         } else {
           sessionStorage.setItem('user', JSON.stringify(data[0]));
           this.router.navigate(['products']);

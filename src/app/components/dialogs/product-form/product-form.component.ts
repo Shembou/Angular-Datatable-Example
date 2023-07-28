@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 import { Options } from 'src/app/model/options';
 import { Product } from 'src/app/model/product';
 import { HttpRequestsService } from 'src/app/services/http-requests.service';
@@ -18,7 +19,8 @@ export class ProductFormComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<ProductFormComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Product | any,
-    private httpRequestsService: HttpRequestsService
+    private httpRequestsService: HttpRequestsService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -55,9 +57,10 @@ export class ProductFormComponent implements OnInit{
     this.httpRequestsService.post('/products', data).subscribe({
       next:(data: any) => {
         if(data.errorMessage) {
-          console.log(data.errorMessage);
+          this.toastr.error(`${data.errorMessage}`, 'Error');
+          
         } else {
-          console.log(data.message);
+          this.toastr.success(`${data.message}`, 'Success');
           this.dialogRef.close(true);
         }
       }
