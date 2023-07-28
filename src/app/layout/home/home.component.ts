@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductFormComponent } from 'src/app/components/dialogs/product-form/product-form.component';
@@ -13,7 +13,7 @@ import { HttpRequestsService } from 'src/app/services/http-requests.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
 
   products: Product[]
   filters: FormGroup;
@@ -27,6 +27,9 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
+  }
+
+  ngAfterViewInit(): void {
     this.getProducts();
   }
 

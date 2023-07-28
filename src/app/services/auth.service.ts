@@ -16,7 +16,7 @@ export class AuthService {
   }
 
   signOut() {
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.router.navigate(['login']);
   }
 
@@ -24,3 +24,4 @@ export class AuthService {
     return JSON.parse(sessionStorage.getItem('user'));
   }
 }
+

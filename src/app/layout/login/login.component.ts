@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.createFormGroup();
+    this.checkStorage();
   }
 
   createFormGroup() {
@@ -62,6 +63,12 @@ export class LoginComponent implements OnInit {
     this.areShown == true ?
       this.areShown = false :
       this.areShown = true;
+  }
+
+  checkStorage() {
+    if (sessionStorage.getItem('user')) {
+      this.router.navigate(['products']);
+    }
   }
 
   login() {

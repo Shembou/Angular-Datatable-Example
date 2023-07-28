@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DeleteProductComponent } from 'src/app/components/dialogs/delete-product/delete-product.component';
@@ -16,7 +16,7 @@ import { ProductsService } from 'src/app/services/products.service';
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   product: Product
   user: User;
@@ -36,6 +36,9 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.id = parseInt(this.getIdFromParams());
     this.getAuthData();
+  }
+
+  ngAfterViewInit(): void {
     this.getProductById(this.id);
   }
 

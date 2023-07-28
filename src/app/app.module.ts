@@ -27,6 +27,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProductFormComponent } from './components/dialogs/product-form/product-form.component';
 import { AboutComponent } from './layout/about/about.component';
 import { SummaryComponent } from './layout/summary/summary.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { SummaryComponent } from './layout/summary/summary.component';
     ReactiveFormsModule,
     MatInputModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot()
   ],
   exports: [
     RouterModule
