@@ -8,7 +8,7 @@ import { Observable, map } from 'rxjs';
 export class AppConfigService {
 
   private appConfig: any;
-  
+
   constructor(
     private http: HttpClient
   ) { }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Item } from 'src/app/model/item';
-import { Product } from 'src/app/model/product';
 import { User } from 'src/app/model/user';
+import { UserItem } from 'src/app/model/userItem';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -20,9 +20,7 @@ export class SummaryComponent implements OnInit {
   dataSource: MatTableDataSource<Item[]> = new MatTableDataSource;
   constructor(
     private auth: AuthService
-  ) {
-
-  }
+  ) { }
 
   ngOnInit(): void {
     this.user = this.auth.getCurrentUser();
@@ -41,24 +39,20 @@ export class SummaryComponent implements OnInit {
     }
   }
 
-  setItemsToDisplay() {
-    const uniqueItems = [];
-    const idsSet = new Set();
+  setItemsToDisplay(): UserItem[] {
+    const uniqueItems: UserItem[] = [];
 
-    this.userItems.forEach((item) => {
-      if (!idsSet.has(item.product.id)) {
-        idsSet.add(item.product.id);
-        item.product.quantity=1;
-        uniqueItems.push(item);
+    this.userItems.forEach((userItem) => {
+      const { id } = userItem.product;
+      const existingItem = uniqueItems.find((item) => item.product.id === id);
+
+      if (existingItem) {
+        existingItem.product.quantity++;
       } else {
-        uniqueItems.map((uItem) => {
-          if (uItem.product.id == item.product.id) {
-            return { ...uItem.product, quantity: uItem.product.quantity++};
-          }
-          return uItem;
-        })
+        uniqueItems.push({ ...userItem, product: { ...userItem.product, quantity: 1 } });
       }
     });
+
     return uniqueItems;
   }
 

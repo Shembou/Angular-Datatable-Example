@@ -1,12 +1,11 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ToastrService } from 'ngx-toastr';
 import { ProductFormComponent } from 'src/app/components/dialogs/product-form/product-form.component';
 import { Product } from 'src/app/model/product';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpRequestsService } from 'src/app/services/http-requests.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 
 @Component({
@@ -16,15 +15,14 @@ import { HttpRequestsService } from 'src/app/services/http-requests.service';
 })
 export class HomeComponent implements OnInit, AfterViewInit {
 
-  products: Product[]
+  products: Product[] | any;
   filters: FormGroup;
   user: User;
 
   constructor(
-    private httpRequestsService: HttpRequestsService,
     private dialog: MatDialog,
     private auth: AuthService,
-    private toastr: ToastrService
+    private productsService: ProductsService
   ) { }
 
   ngOnInit(): void {
@@ -36,14 +34,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   getProducts() {
-    this.httpRequestsService.get("/products").subscribe({
-      next: (data: Product[] | any) => {
-        if (data.errorMessage) {
-          this.toastr.error(`${data.errorMessage}`, 'Error');
-        }else {
-          this.products = data.filter((product) => product.quantity > 0);
-        }
-      }
+    this.productsService.get().subscribe((products: Product[]) => {
+      this.products = products;
     });
   }
 
@@ -64,7 +56,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
     })
   }
-
 
   recieveFilters($event: any) {
     this.filters = $event;

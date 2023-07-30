@@ -1,5 +1,4 @@
-import { HttpParams } from '@angular/common/http';
-import { AfterContentInit, AfterViewChecked, AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,7 +8,6 @@ import { Item } from 'src/app/model/item';
 import { Product } from 'src/app/model/product';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { HttpRequestsService } from 'src/app/services/http-requests.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -28,7 +26,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private router: Router,
     public productsService: ProductsService,
-    private httpRequestsService: HttpRequestsService,
     private auth: AuthService,
     public dialog: MatDialog,
     private toastr: ToastrService
@@ -49,16 +46,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   }
 
   getProductById(id: number) {
-    const params = new HttpParams()
-      .set('id', id);
-    this.httpRequestsService.get("/products", params).subscribe({
-      next: (data: Product[] | any) => {
-        if (data.errorMessage) {
-          this.toastr.error(`${data.errorMessage}`, 'Error');
-        } else {
-          this.product = data[0];
-        }
-      }
+    this.productsService.getById(id).subscribe((product: Product) => {
+      this.product = product;
     });
   }
 
@@ -73,7 +62,6 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       height: '60vh',
       width: '60vw'
     });
-    //refresh page
     dialogRef.afterClosed().subscribe(result => {
       if (result == true) {
         this.getProductById(this.id);
@@ -81,7 +69,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
     })
   }
 
-  delete () {
+  delete() {
     const dialogRef = this.dialog.open(DeleteProductComponent, {
       data: this.product,
       height: '60vh',

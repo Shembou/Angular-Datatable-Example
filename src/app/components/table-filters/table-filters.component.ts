@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { Options } from 'src/app/model/options';
 import { User } from 'src/app/model/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { ProductFormComponent } from '../dialogs/product-form/product-form.component';
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-filters',

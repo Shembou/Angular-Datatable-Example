@@ -1,9 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { User } from 'src/app/model/user';
-import { HttpRequestsService } from 'src/app/services/http-requests.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +14,8 @@ export class LoginComponent implements OnInit {
   areShown: boolean;
 
   constructor(
-    private httpRequestsService: HttpRequestsService,
     private router: Router,
-    private toastr: ToastrService
+    private auth: AuthService
   ) {
   }
 
@@ -40,31 +37,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  createBody(username: string, password: string) {
-    return {
-      username: username,
-      password: password
-    };
-  }
-
   verifyUser(username: string, password: string) {
-    const body = this.createBody(username, password);
-    this.httpRequestsService.post('/users', body).subscribe({
-      next: (data: User[] | any) => {
-        if (data.errorMessage) {
-          this.toastr.error(`${data.errorMessage}`, 'Error');
-        } else {
-          sessionStorage.setItem('user', JSON.stringify(data[0]));
-          this.router.navigate(['products']);
-        }
-      }
-    });
+    this.auth.verify(username, password);
   }
 
   showUsers() {
-    this.areShown == true ?
-      this.areShown = false :
-      this.areShown = true;
+    this.areShown != this.areShown;
   }
 
   checkStorage() {
